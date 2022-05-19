@@ -501,3 +501,228 @@ void mostrarZonaCensados(eZona zona, eCencista listaCencistas [], int tam, eLoca
 		}
 
 }
+
+int informarCencistaEstadoActivoZonaPendiente(eCencista listaCencistas[], int tam, eZona listaZonas[], int tamZon)
+{
+	int contadorCencistas = 0;
+	int posicionCencista;
+	if(listaCencistas != NULL && tam > 0 && listaZonas != NULL && tamZon > 0)
+	{
+		for(int i= 0; i < tamZon; i++)
+		{
+			if(listaZonas[i].estado == PENDIENTE)
+			{
+				posicionCencista = buscarCencistaId(listaCencistas, tam, listaZonas[i].idCencista);
+				if(posicionCencista != -1 && listaCencistas[i].estado == ACTIVO)
+				{
+					contadorCencistas++;
+				}
+			}
+		}
+		printf("la cantidad de cencistas en estado ACTIVO y zona PENDIENTE es %d \n", contadorCencistas);
+	}
+	return contadorCencistas;
+}
+
+void informarLocalidadMasAusentes(eZona listaZonas[], int tamZon, eLocalidades listaLocalidades[], int tamLoc)
+{
+	int acumuladorAvellaneda = 0;
+	int acumuladorGerli = 0;
+	int acumuladorLanus = 0;
+	int acumuladorLomas = 0;
+	int acumuladorBanfield = 0;
+
+	if(listaLocalidades != NULL && tamLoc > 0 && listaZonas != NULL && tamZon > 0)
+	{
+		for(int i= 0; i < tamZon; i++)
+		{
+			if(listaZonas[i].isEmpty == 0)
+			{
+				switch(listaZonas[i].idLocalidad)
+				{
+				case 5000:
+					acumuladorAvellaneda = acumuladorAvellaneda + listaZonas[i].ausentes;
+					break;
+
+				case 5001:
+					acumuladorBanfield = acumuladorBanfield + listaZonas[i].ausentes;
+					break;
+
+				case 5002:
+					acumuladorGerli = acumuladorGerli + listaZonas[i].ausentes;
+					break;
+
+				case 5003:
+					acumuladorLomas = acumuladorLomas + listaZonas[i].ausentes;
+					break;
+
+				case 5004:
+					acumuladorLanus = acumuladorLanus + listaZonas[i].ausentes;
+					break;
+				}
+			}
+		}
+		if(acumuladorAvellaneda >= acumuladorBanfield && acumuladorAvellaneda >= acumuladorGerli && acumuladorAvellaneda >=  acumuladorLomas && acumuladorLanus)
+		{
+			printf("La localidad con mas ausentes es Avellaneda con %d\n",acumuladorAvellaneda);
+		}
+		if(acumuladorBanfield >= acumuladorAvellaneda && acumuladorBanfield >= acumuladorGerli && acumuladorBanfield >=  acumuladorLanus && acumuladorBanfield >= acumuladorLomas)
+		{
+			printf("La localidad con mas ausentes es Banfield con %d\n",acumuladorBanfield);
+		}
+		if(acumuladorGerli >= acumuladorAvellaneda && acumuladorGerli >= acumuladorBanfield && acumuladorGerli >=  acumuladorLanus && acumuladorGerli >= acumuladorLomas)
+		{
+			printf("La localidad con mas ausentes es Gerli con %d\n",acumuladorGerli);
+		}
+		if(acumuladorLanus >= acumuladorAvellaneda && acumuladorLanus >= acumuladorBanfield && acumuladorLanus >=  acumuladorGerli && acumuladorLanus >= acumuladorLomas)
+		{
+			printf("La localidad con mas ausentes es Lanus con %d\n",acumuladorLanus);
+		}
+		if(acumuladorLomas >= acumuladorAvellaneda && acumuladorLomas >= acumuladorBanfield && acumuladorLomas >=  acumuladorGerli && acumuladorLomas >= acumuladorLanus)
+		{
+			printf("La localidad con mas ausentes es Lomas con %d\n",acumuladorLomas);
+		}
+	}
+}
+
+//Informar el censista cuya zona fue la más censada (total censados presencial y virtual)
+
+/*void nombreCencistaMayorCensados(eZona listaZonas[], int tamZon, eCencista listaCencistas[], int tam)
+{
+
+
+	if(listaCencistas != NULL && tam > 0 && listaZonas != NULL && tamZon > 0)
+	{
+		for(int i= 0; i < tamZon; i++)
+		{
+			if(listaZonas[i].estado == FINALIZADO)
+			{
+				posicionCencista = buscarCencistaId(listaCencistas, tam, listaZonas[i].idCencista);
+				if(posicionCencista != -1 && listaCencistas[i].estado == ACTIVO)
+				{
+					contadorCencistas++;
+				}
+			}
+		}
+		printf("la cantidad de cencistas en estado ACTIVO y zona PENDIENTE es %d \n", contadorCencistas);
+	}
+}
+*/
+
+//Informar el promedio de censos por censista/zona.
+/*
+void informarPromedioDeCensos(eZona listaZonas[], eCencista listaCencistas[], int tam, int tamZon)
+{
+	int contador = 0;
+	int acumulador = 0;
+	float acum;
+
+	if(listaCencistas != NULL && tam > 0 && listaZonas != NULL && tamZon > 0)
+	{
+		if()
+	}
+
+}
+*/
+
+//b. Mostrar el listado de censistas de Avellaneda, Lanús, Lomas de Zamora o Banfield ordenados alfabéticamente por apellido y nombre.
+
+void listarPorLocalidad (eZona listaZonas[], int tamZon, eCencista listaCencistas[], int tam, eLocalidades listaLocalidades[], int tamLoc)
+{
+	int idLocalidad;
+	if(listaCencistas != NULL && tam > 0 && listaZonas != NULL && tamZon > 0)
+		{
+			mostrarLocalidades(listaLocalidades, tamLoc);
+			idLocalidad = cargarInt("Que localidad desea mostrar cencistas \n", 5000, 5004);
+
+			switch(idLocalidad)
+			{
+				case 5000:
+					ordenarPorApellidoNombre(listaCencistas, tam);
+					mostarPorLocalidad(listaCencistas, tam, 5000, listaZonas, tamZon);
+					break;
+
+				case 5001:
+					ordenarPorApellidoNombre(listaCencistas, tam);
+					mostarPorLocalidad(listaCencistas, tam, 5001, listaZonas, tamZon);
+					break;
+
+				case 5002:
+					ordenarPorApellidoNombre(listaCencistas, tam);
+					mostarPorLocalidad(listaCencistas, tam, 5002, listaZonas, tamZon);
+					break;
+
+				case 5003:
+					ordenarPorApellidoNombre(listaCencistas, tam);
+					mostarPorLocalidad(listaCencistas, tam, 5003, listaZonas, tamZon);
+					break;
+
+				case 5004:
+					ordenarPorApellidoNombre(listaCencistas, tam);
+					mostarPorLocalidad(listaCencistas, tam, 5004, listaZonas, tamZon);
+					break;
+			}
+
+		}
+}
+
+void ordenarPorApellidoNombre(eCencista listaCencistas[], int len)
+{
+		eCencista aux;
+		int i;
+		int estaOrdenado = 0;
+
+			do
+				{
+					estaOrdenado = 1;
+					len--;
+					for (i = 0; i < len; i++)
+					{
+						if(listaCencistas[i].isEmpty == 0)
+						{
+
+							if (strcmp(listaCencistas[i].apellido,listaCencistas[i+1].apellido) > 0)
+							{
+								aux = listaCencistas[i];
+								listaCencistas[i] = listaCencistas[i+1];
+								listaCencistas[i+1] = aux;
+								estaOrdenado = 0;
+							}
+							if	((strcmp(listaCencistas[i].apellido,listaCencistas[i+1].apellido) == 0 && listaCencistas[i].nombre > listaCencistas[i+1].nombre))
+							{
+
+								aux = listaCencistas[i];
+								listaCencistas[i] = listaCencistas[i+1];
+								listaCencistas[i+1] = aux;
+								estaOrdenado = 0;
+							}
+						}
+					}
+		}while(estaOrdenado == 0);
+}
+
+void mostarPorLocalidad (eCencista listaCencistas[], int tam, int id, eZona listaZonas[], int tamZon)
+{
+	    if(listaCencistas != NULL && tam > 0)
+	    {
+	        system("cls");
+	        printf("      								***CENCISTAS***\n\n");
+	        printf("--------------------------------------------------------------------------------------------------------------------------------\n");
+	        printf("ID      NOMBRE      	APELLIDO       	 	DIRECCION 	   EDAD	  FECHA DE NACIMIENTO		ESTADO\n");
+	        printf("--------------------------------------------------------------------------------------------------------------------------------\n\n");
+
+	        for(int i=0; i<tam; i++)
+	        {
+	            if(listaCencistas[i].isEmpty == 0)
+	            {
+				 for(int j=0; i<tamZon; j++)
+				 {
+					if(listaZonas[j].idLocalidad == id)
+					{
+						mostrarCencista(listaCencistas[i]);
+					}
+				 }
+	            }
+	        }
+	    }
+}

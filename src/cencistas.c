@@ -100,11 +100,12 @@ int menu()
     printf("3) DAR DE BAJA CENCISTA\n");
     printf("4) CARGAR ZONA\n");
     printf("5) ASIGNAR ZONA A CENSAR\n");
-    printf("6) CARGA DE DATOSR\n");
+    printf("6) CARGA DE DATOS\n");
     printf("7) MOSTRAR CENSISTA\n");
 	printf("8) MOSTRAR ZONA\n");
 	printf("9) HARDCODEAR ZONAS Y CENCISTAS\n");
-	printf("10) SALIR\n");
+	printf("10) INFORMES\n");
+	printf("11) SALIR\n");
     opcion = cargarInt("Ingrese una opcion: \n", 1, 10);
 
     return opcion;

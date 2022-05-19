@@ -176,7 +176,14 @@ int main()
 						flagZona =1;
 						printf("Se hardcodearon 10 zonas y 10 cencistas\n");
 					break;
-				case 10:
+				case 10: //informes
+					//A
+					informarCencistaEstadoActivoZonaPendiente(listaCencistas, TAM, listaZonas, TAMZON);
+					//C
+					informarLocalidadMasAusentes(listaZonas, TAMZON, listaLocalidades, TAMLOC);
+					listarPorLocalidad(listaZonas, TAMZON, listaCencistas, TAM, listaLocalidades, TAMLOC);
+					break;
+				case 11:
 					salir = 's';
 					break;
 			}

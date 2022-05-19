@@ -116,4 +116,11 @@ typedef struct
      * @param listaLocalidades
      * @param tamLoc
      */void mostrarZonaCensados(eZona zona, eCencista listaCencistas [], int tam, eLocalidades listaLocalidades [], int tamLoc);
+
+     int informarCencistaEstadoActivoZonaPendiente(eCencista listaCencistas[], int tam, eZona listaZonas[], int tamZon);
+     void informarLocalidadMasAusentes(eZona listaZonas[], int tamZon, eLocalidades listaLocalidades[], int tamLoc);
+     void mostarPorLocalidad (eCencista listaCencistas[], int tam, int id, eZona listaZonas[], int tamZon);
+     void ordenarPorApellidoNombre(eCencista listaCencistas[], int len);
+     void listarPorLocalidad (eZona listaZonas[], int tamZon, eCencista listaCencistas[], int tam, eLocalidades listaLocalidades[], int tamLoc);
+
 #endif /* ZONAS_H_ */

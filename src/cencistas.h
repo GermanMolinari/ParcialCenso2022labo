@@ -98,4 +98,5 @@ typedef struct
 * @return 0 si no pudo hacerlo, 1 si tuvo exito
 */int bajaCencista(eCencista listaCencistas[], int tam);
 
+
 #endif /* CENCISTAS_H_ */
