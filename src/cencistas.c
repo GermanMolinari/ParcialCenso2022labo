@@ -177,49 +177,56 @@ int altaCensista(int* id, eCencista listaCencistas[], int tam)
 				printf("No se admiten numeros, espacios o simbolos en el nombre \n");
 				todoOk = 0;
 			}
+			if(todoOk == 1)
+			{
 
-			printf("Ingrese apellido del cencista \n");
-			fflush(stdin);
-			scanf("%s", auxCadena);
-			retornoValidacion = validarLetras(auxCadena);
+				printf("Ingrese apellido del cencista \n");
+				fflush(stdin);
+				scanf("%s", auxCadena);
+				retornoValidacion = validarLetras(auxCadena);
 
-			if(retornoValidacion == 1)
+				if(retornoValidacion == 1)
 				{
 					strncpy(data.apellido,auxCadena,sizeof(data.apellido));
 				}
-			else
+				else
 				{
 					printf("No se admiten numeros, espacios o simbolos en el apellido\n");
 					todoOk = 0;
 
 				}
+				if (todoOk == 1)
+				{
+					data.fechaNacimiento = tomarFecha();
 
-			data.fechaNacimiento = tomarFecha();
+					printf("Ingrese la calle de su direccion\n");
+					fflush(stdin);
+					scanf("%s", auxCadena);
+					retornoValidacion = validarLetras(auxCadena);
+					if(retornoValidacion == 1)
+					{
+						strncpy(data.direccion.calle,auxCadena, sizeof(data.direccion));
+					}
+					else
+					{
+						printf("No se admiten numeros, espacios o simbolos en la calle\n");
+						todoOk = 0;
+					}
 
-			printf("Ingrese la calle de su direccion\n");
-			fflush(stdin);
-			scanf("%s", auxCadena);
-			retornoValidacion = validarLetras(auxCadena);
-			if(retornoValidacion == 1)
-			{
-				strncpy(data.direccion.calle,auxCadena, sizeof(data.direccion));
-			}
-			else
-			{
-				printf("No se admiten numeros, espacios o simbolos en el apellido\n");
-				todoOk = 0;
-			}
+					if(todoOk == 1)
+					{
+						data.direccion.altura=cargarInt("Ingrese la altura de su calle", 1, 20000);
 
-			data.direccion.altura=cargarInt("Ingrese la altura de su calle", 1, 20000);
-			data.edad = cargarInt("Ingrese su edad \n", 18, 57);
-
-			if(todoOk == 1)
-			{
-				data.isEmpty = 0;
-				data.estado = INACTIVO;
-				data.id = *id;
-				(*id)++;
-				listaCencistas[posicion] = data;
+						if(todoOk == 1)
+						{
+							data.isEmpty = 0;
+							data.estado = INACTIVO;
+							data.id = *id;
+							(*id)++;
+							listaCencistas[posicion] = data;
+						}
+					}
+				}
 			}
 		}
     }
@@ -322,100 +329,131 @@ int modificarCencista(eCencista listaCencistas[], int tam)
         {
             printf("Error.. ingrese solo s/n \n");
             scanf("%c", &confirm);
+            confirm = tolower(confirm);
         }
         if (confirm == 's')
         {
         	do{
-        	            printf("//1. NOMBRE		//2. APELLIDO		//3. FECHA DE NACIMIENTO		//4. DIRECCION 		//5. EDAD		//6. SALIR\n");
-        	            opcion= cargarInt("Elija el campo que desea cambiar:",1,6);
-        	            switch(opcion)
-        	            {
-        	                case 1:
-        	                	printf("Ingrese nombre del pasajero\n");
+				printf("//1. NOMBRE		//2. APELLIDO		//3. FECHA DE NACIMIENTO		//4. DIRECCION 		//5. EDAD		//6. SALIR\n");
+				opcion= cargarInt("Elija el campo que desea cambiar:",1,6);
+				switch(opcion)
+				{
+					case 1:
+						printf("Ingrese nombre del cencista\n");
+						fflush(stdin);
+						scanf("%s", auxCadena);
+						retornoValidacion = validarLetras(auxCadena);
+						if(retornoValidacion == 1)
+						{
+							strncpy(listaCencistas[posicion].nombre,auxCadena,sizeof(listaCencistas[posicion].nombre));
+							todoOk=1;
+						}
+						else
+						{
+
+							printf("No se admiten numeros, espacios o simbolos en el nombre \n");
+						}
+						break;
+
+					case 2:
+						printf("Ingrese apellido del cencista\n");
+						fflush(stdin);
+						scanf("%s", auxCadena);
+						retornoValidacion = validarLetras(auxCadena);
+						if(retornoValidacion == 1)
+						{
+							strncpy(listaCencistas[posicion].apellido,auxCadena,sizeof(listaCencistas[posicion].apellido));
+							todoOk=1;
+						}
+						else
+						{
+
+							printf("No se admiten numeros, espacios o simbolos en el apellido \n");
+						}
+						break;
+
+					case 3:
+						opcionSubmenu = cargarInt("Seleccion que desea modificar \n1. Dia \n2. Mes \n 3.Anio \n", 1, 3);
+						switch(opcionSubmenu)
+						{
+							case 1:
+								listaCencistas[posicion].fechaNacimiento.dia = cargarInt("Ingrese un numero del 1 al 31", 1, 31);
+								if(listaCencistas[posicion].fechaNacimiento.mes <= 5 && listaCencistas[posicion].fechaNacimiento.dia <= 18)
+								{
+									listaCencistas[posicion].edad = 2022 - listaCencistas[posicion].fechaNacimiento.anio;
+								}
+								else
+								{
+									listaCencistas[posicion].edad = 2022 - listaCencistas[posicion].fechaNacimiento.anio - 1;
+								}
+								todoOk=1;
+								break;
+							case 2:
+								listaCencistas[posicion].fechaNacimiento.mes = cargarInt("Ingrese un numero del 1 al 12", 1, 12);
+								if(listaCencistas[posicion].fechaNacimiento.mes <= 5 && listaCencistas[posicion].fechaNacimiento.dia <= 18)
+								{
+									listaCencistas[posicion].edad = 2022 - listaCencistas[posicion].fechaNacimiento.anio;
+								}
+								else
+								{
+									listaCencistas[posicion].edad = 2022 - listaCencistas[posicion].fechaNacimiento.anio - 1;
+								}
+								todoOk=1;
+								break;
+							case 3:
+								listaCencistas[posicion].fechaNacimiento.anio = cargarInt("Ingrese un numero del 1965 al 2004", 1965, 2004);
+								if(listaCencistas[posicion].fechaNacimiento.mes <= 5 && listaCencistas[posicion].fechaNacimiento.dia <= 18)
+								{
+									listaCencistas[posicion].edad = 2022 - listaCencistas[posicion].fechaNacimiento.anio;
+								}
+								else
+								{
+									listaCencistas[posicion].edad = 2022 - listaCencistas[posicion].fechaNacimiento.anio - 1;
+								}
+								todoOk=1;
+								break;
+						}
+						break;
+					case 4:
+						opcionSubmenu = cargarInt("Seleccion que desea modificar \n1. Calle \n2. Altura \n", 1, 2);
+						switch(opcionSubmenu)
+						{
+							case 1:
+								printf("Ingrese la calle de su direccion\n");
 								fflush(stdin);
 								scanf("%s", auxCadena);
 								retornoValidacion = validarLetras(auxCadena);
 								if(retornoValidacion == 1)
 								{
-									strncpy(listaCencistas[posicion].nombre,auxCadena,sizeof(listaCencistas[posicion].nombre));
-									todoOk=1;
+									strncpy(listaCencistas[posicion].direccion.calle,auxCadena, sizeof(listaCencistas[posicion].direccion.calle));
+									todoOk = 1;
 								}
 								else
 								{
-
-									printf("No se admiten numeros, espacios o simbolos en el nombre \n");
-								}
-        	                	break;
-
-        	                case 2:
-        	                	printf("Ingrese apellido del pasajero\n");
-								fflush(stdin);
-								scanf("%s", auxCadena);
-								retornoValidacion = validarLetras(auxCadena);
-								if(retornoValidacion == 1)
-								{
-									strncpy(listaCencistas[posicion].apellido,auxCadena,sizeof(listaCencistas[posicion].apellido));
-									todoOk=1;
-								}
-								else
-								{
-
-									printf("No se admiten numeros, espacios o simbolos en el nombre \n");
+									printf("No se admiten numeros, espacios o simbolos en la calle de la direccion, no se pudo modificar\n");
 								}
 								break;
+							case 2:
+								listaCencistas[posicion].direccion.altura = cargarInt("Ingrese un numero del 1 al 2000", 1, 2000);
+								todoOk=1;
+								break;
+						}
+						todoOk=1;
+						break;
 
-        	                case 3:
-        	                	opcionSubmenu = cargarInt("Seleccion que desea modificar \n1. Dia \n2. Mes \n 3.Anio \n", 1, 3);
-								switch(opcionSubmenu)
-								{
-									case 1:
-										listaCencistas[posicion].fechaNacimiento.dia = cargarInt("Ingrese un numero del 1 al 31", 1, 31);
-										todoOk=1;
-										break;
-									case 2:
-										listaCencistas[posicion].fechaNacimiento.mes = cargarInt("Ingrese un numero del 1 al 12", 1, 12);
-										todoOk=1;
-										break;
-									case 3:
-										listaCencistas[posicion].fechaNacimiento.anio = cargarInt("Ingrese un numero del 1965 al 2004", 1965, 2004);
-										todoOk=1;
-										break;
-								}
-        	                	break;
-        	                case 4:
-        	                	opcionSubmenu = cargarInt("Seleccion que desea modificar \n1. Calle \n2. Altura \n", 1, 2);
-        	                	switch(opcionSubmenu)
-								{
-									case 1:
-
-										printf("Ingrese la calle de su direccion\n");
-										fflush(stdin);
-										scanf("%s", auxCadena);
-										retornoValidacion = validarLetras(auxCadena);
-										if(retornoValidacion == 1)
-										{
-											strncpy(listaCencistas[posicion].direccion.calle,auxCadena, sizeof(listaCencistas[posicion].direccion.calle));
-											todoOk = 1;
-										}
-										else
-										{
-											printf("No se admiten numeros, espacios o simbolos en el apellido, no se pudo modificar\n");
-										}
-										break;
-									case 2:
-										listaCencistas[posicion].direccion.altura = cargarInt("Ingrese un numero del 1 al 2000", 1, 2000);
-										todoOk=1;
-										break;
-								}
-        	                	todoOk=1;
-        	                	break;
-
-        	                case 5:
-        	                	listaCencistas[posicion].edad = cargarInt("Ingrese su edad", 18, 57);
-        	                	break;
-
-        	            }
-        	        }while(opcion!=6);
+					case 5:
+						listaCencistas[posicion].edad = cargarInt("Ingrese su edad", 18, 57);
+						if(listaCencistas[posicion].fechaNacimiento.mes <= 5 && listaCencistas[posicion].fechaNacimiento.dia <= 18)
+						{
+							listaCencistas[posicion].fechaNacimiento.anio = 2022 - listaCencistas[posicion].edad;
+						}
+						else
+						{
+							listaCencistas[posicion].fechaNacimiento.anio = 2022 - listaCencistas[posicion].edad - 1;
+						}
+						break;
+				}
+			}while(opcion!=6);
         }
         else
         {
@@ -454,6 +492,8 @@ int bajaCencista(eCencista listaCencistas[], int tam)
 				{
 					printf("Error.. ingrese solo s/n \n");
 					scanf("%c", &confirma);
+		            confirma = tolower(confirma);
+
 				}
 
 				if(confirma == 's')

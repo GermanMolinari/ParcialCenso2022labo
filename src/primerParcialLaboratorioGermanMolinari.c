@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "cencistas.h"
 #include "zonas.h"
 #include "localidades.h"
@@ -42,6 +43,7 @@ int main()
 		printf("No se pudo inicializar \n");
 	}
 	do {
+			//system("pause");
 			switch (menu())
 			{
 				case 1:
@@ -172,6 +174,7 @@ int main()
 						hardcodearZonas(listaZonas,&idZona);
 						flag = 1;
 						flagZona =1;
+						printf("Se hardcodearon 10 zonas y 10 cencistas\n");
 					break;
 				case 10:
 					salir = 's';

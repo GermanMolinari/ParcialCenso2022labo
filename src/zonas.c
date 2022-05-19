@@ -170,67 +170,76 @@ int altaZona (int* id, eZona listaZonas[], int tamZon, eLocalidades listaLocalid
 
 				}
 
-			printf("Ingrese Calle 2 \n");
-			fflush(stdin);
-			scanf("%s", auxCadena);
-			retornoValidacion = validarLetras(auxCadena);
+			if(todoOk == 1)
+			{
+				printf("Ingrese Calle 2 \n");
+				fflush(stdin);
+				scanf("%s", auxCadena);
+				retornoValidacion = validarLetras(auxCadena);
 
-			if(retornoValidacion == 1)
+				if(retornoValidacion == 1)
 				{
 					strncpy(data.calleDos,auxCadena,sizeof(data.calleDos));
 				}
-			else
+				else
 				{
 					printf("No se admiten numeros, espacios o simbolos en el nombre de la calle\n");
 					todoOk = 0;
-
 				}
-			printf("Ingrese Calle 3 \n");
-			fflush(stdin);
-			scanf("%s", auxCadena);
-			retornoValidacion = validarLetras(auxCadena);
-
-			if(retornoValidacion == 1)
+				if(todoOk == 1)
 				{
-					strncpy(data.calleTres,auxCadena,sizeof(data.calleTres));
+					printf("Ingrese Calle 3 \n");
+					fflush(stdin);
+					scanf("%s", auxCadena);
+					retornoValidacion = validarLetras(auxCadena);
+
+					if(retornoValidacion == 1)
+					{
+						strncpy(data.calleTres,auxCadena,sizeof(data.calleTres));
+					}
+					else
+					{
+						printf("No se admiten numeros, espacios o simbolos en el nombre de la calle\n");
+						todoOk = 0;
+
+					}
+					if(todoOk == 1)
+					{
+						printf("Ingrese Calle 4 \n");
+						fflush(stdin);
+						scanf("%s", auxCadena);
+						retornoValidacion = validarLetras(auxCadena);
+
+						if(retornoValidacion == 1)
+							{
+								strncpy(data.calleCuatro,auxCadena,sizeof(data.calleCuatro));
+							}
+						else
+							{
+								printf("No se admiten numeros, espacios o simbolos en el nombre de la calle\n");
+								todoOk = 0;
+
+							}
+						if(todoOk == 1)
+						{
+							mostrarLocalidades(listaLocalidades, tamLoc);
+							idLocalidad = cargarInt("Ingrese id de la localidad \n", 5000, 5004);
+						}
+
+						if(todoOk == 1)
+						{
+							data.isEmpty = 0;
+							data.id = *id;
+							data.idLocalidad = idLocalidad;
+							data.estado= PENDIENTE;
+							data.ausentes = -1;
+							data.censadosSitu = -1;
+							data.censadosVirtual = -1;
+							(*id)++;
+							listaZonas[posicion] = data;
+						}
+					}
 				}
-			else
-				{
-					printf("No se admiten numeros, espacios o simbolos en el nombre de la calle\n");
-					todoOk = 0;
-
-				}
-			printf("Ingrese Calle 4 \n");
-			fflush(stdin);
-			scanf("%s", auxCadena);
-			retornoValidacion = validarLetras(auxCadena);
-
-			if(retornoValidacion == 1)
-				{
-					strncpy(data.calleCuatro,auxCadena,sizeof(data.calleCuatro));
-				}
-			else
-				{
-					printf("No se admiten numeros, espacios o simbolos en el nombre de la calle\n");
-					todoOk = 0;
-
-				}
-
-			mostrarLocalidades(listaLocalidades, tamLoc);
-			idLocalidad = cargarInt("Ingrese id de la localidad \n", 5000, 5004);
-
-
-			if(todoOk == 1)
-			{
-				data.isEmpty = 0;
-				data.id = *id;
-				data.idLocalidad = idLocalidad;
-				data.estado= PENDIENTE;
-				data.ausentes = -1;
-				data.censadosSitu = -1;
-				data.censadosVirtual = -1;
-				(*id)++;
-				listaZonas[posicion] = data;
 			}
 		}
     }
